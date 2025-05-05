@@ -1,0 +1,17 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm i
+
+RUN npm install express
+
+RUN npm install sequelize
+
+RUN tsc server.ts
+
+EXPOSE 3000
+
+CMD ["node", "API/src/server.ts"]
