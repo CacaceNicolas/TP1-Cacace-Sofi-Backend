@@ -41,8 +41,19 @@ export  class controllerUsuario{
         );
 
         if (!usuarioAnt){
-            const usuario =  controllerUsuario.crearUsuario(body);
+
+            const usuario =  await controllerUsuario.crearUsuario(body);
+
+            const payload = {
+                "nombre" : usuario.nombre
+            }
+
+            return controllerUsuario.generarJWT(payload)
         }
+        else{
+            console.log(usuarioAnt)
+        }
+
     }
 
     static async login(body : any){
@@ -58,7 +69,6 @@ export  class controllerUsuario{
                     "nombre" : usuario.nombre
                 }
                 
-                console.log(payload)
                 return controllerUsuario.generarJWT(payload)
 
             }
