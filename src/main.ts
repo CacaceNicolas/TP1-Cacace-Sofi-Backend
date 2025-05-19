@@ -21,6 +21,7 @@ app.use('/logIn', cors());
 app.use("/logIn", loginRouter);
 
 
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

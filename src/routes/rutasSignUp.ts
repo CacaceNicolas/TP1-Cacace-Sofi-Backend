@@ -8,8 +8,8 @@ import { Sequelize, DataTypes } from 'sequelize';
     import { controllerUsuario } from '../controllers/controllerUsuario';
 
 
-    signUpRouter.post('/', (req: Request, res: Response) => {
+    signUpRouter.post('/',async (req: Request, res: Response) => {
        
-        res.send(controllerUsuario.signUp(req.body))
+        res.send(await controllerUsuario.signUp(req.body))
     });
 

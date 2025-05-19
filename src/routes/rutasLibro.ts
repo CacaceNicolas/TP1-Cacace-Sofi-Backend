@@ -2,26 +2,38 @@ import express, { Request, Response } from 'express';
 
 import { Sequelize, DataTypes } from 'sequelize';
 
-    export let librosRouter = express.Router()
+export let librosRouter = express.Router()
 
-    import { controllerLibro } from '../controllers/controllerLibro';
-    import  ModeloLibro  from '../models/ModeloLibro'; 
+import { controllerLibro } from '../controllers/controllerLibro';
+
+import  ModeloLibro  from '../models/ModeloLibro';
+
 import { controllerUsuario } from '../controllers/controllerUsuario';
 
     librosRouter.get('/', async (req: Request, res: Response) => {
 
-        res.json(await controllerLibro.devolverTodosLosLibros());
+        if (await controllerUsuario.autenticar(req.header("Authentication"))){
+        
+            res.json(await controllerLibro.devolverTodosLosLibros());
+        }    
+        else{
+            res.send("BUEN INTENTO RUFIÁN")
+        }
+
 
     });
     librosRouter.get('/', async (req: Request, res: Response) => {
-
-        res.json(controllerLibro.devolverUnLibro(req.body.id));
+        if (await controllerUsuario.autenticar(req.header("Authentication"))){
+            res.json(controllerLibro.devolverUnLibro(req.body.id));
+        }
+        else{
+            res.send("BUEN INTENTO RUFIÁN")
+        }
 
     });
 
     librosRouter.post('/', async (req: Request, res: Response) => {
 
-        console.log("ASDASDASD: " + req.header("Authentication"))
 
         if (await controllerUsuario.autenticar(req.header("Authentication"))){
 
@@ -36,15 +48,21 @@ import { controllerUsuario } from '../controllers/controllerUsuario';
 
     });
 
-    librosRouter.put('/', (req: Request, res: Response) => {
-
-        const libro =  controllerLibro.updetearLibro(req.body);
-
+    librosRouter.put('/',async (req: Request, res: Response) => {
+        if (await controllerUsuario.autenticar(req.header("Authentication"))){
+            const libro =  controllerLibro.updetearLibro(req.body);
+        }
+        else{
+            res.send("BUEN INTENTO RUFIÁN")
+        }
     });
 
-    librosRouter.delete('/', (req: Request, res: Response) => {
-    
-        controllerLibro.deletearLibro(req.body);
-
+    librosRouter.delete('/', async (req: Request, res: Response) => {
+        if (await controllerUsuario.autenticar(req.header("Authentication"))){
+           controllerLibro.deletearLibro(req.body);
+        }
+        else{
+            res.send("BUEN INTENTO RUFIÁN")
+        }
         res.status(200).send();
     });
