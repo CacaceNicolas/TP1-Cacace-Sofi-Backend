@@ -10,6 +10,8 @@ RUN npm install express
 
 RUN npm install sequelize
 
+RUN npm i @sequelize/mysql
+
 RUN npx tsc 
 
 FROM node:alpine AS produccion

@@ -12,9 +12,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@planetscale/database": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "kysely": "^0.28.2",
     "mysql2": "^3.14.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
